@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/boot.css') }}"
+    />
+
+    <title>Weather App</title>
+
+    <style>
+      form {
+        margin: 30px auto;
+        width: 90% !important;
+      }
+
+      form h2 {
+        margin: 20px 0px 30px 0px;
+      }
+
+      form input,
+      label {
+        margin: 5px 0px;
+      }
+      .container {
+        width: 90% !important;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .info {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="container" method="post">
+      <h2><i class="bi bi-cloud-haze"></i>날씨에 따른 음식 추천</h2>
+
+      <div class="form-group">
+        <label>도시 입력</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="도시 이름"
+          name="name"
+        />
+      </div>
+
+      <br />
+      <button type="submit" class="btn btn-primary">검색</button>
+      <h3 class="card-text">현재 시각 : {{ base_time }}</h3>
+    </form>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card text-dark bg-white mb-3" style="max-width: 30rem">
+            <div class="card-body">
+              <h1 class="card-title">{{ city_name }}</h1>
+              <div class="info">
+                <div class="cener">
+                  <h3 class="card-text">{{ temp }}&deg;C</h3>
+                  <h4 class="card-text">{{ weather }}</h4>
+                </div>
+                <div class="left">
+                  &nbsp;&nbsp;
+
+                  <img src="http://openweathermap.org/img/w/{{icon}}.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card text-dark bg-white mb-3" style="max-width: 40rem">
+            <div class="card-body">
+              <h5 class="card-text">음식추천</h5>
+              <ul>
+                {% for food in select_food %}
+                <li>
+                  <h5 class="card-text">{{ food }}</h5>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card text-dark bg-white mb-3" style="max-width: 30rem">
+            <div class="card-body">
+              <br />
+              <h5 class="card-text">{{ water }}</h5>
+              <h5 class="card-text">강수량 : {{ rainper }}%</h5>
+              <h5 class="card-text">미세먼지 농도 : {{ value }}&mu;g/m³</h5>
+              <h5 class="card-text">미세먼지 : {{ val_per }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card text-dark bg-white mb-3" style="max-width: 40rem">
+            <div class="card-body">
+              <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>음식점 정보</title>
+              </head>
+            <body>
+              <h1>음식점 정보</h1>
+              <ul>
+                  {% for recommand in recommands %}
+                  <li>
+                      <h2><a href="{{ recommand.link }}" target="_blank">{{ recommand.title }}</a></h2>
+                      <p>카테고리: {{ recommand.category }}</p>
+                      <p>전화번호: {{ recommand.telephone }}</p>
+                      <p>주소: {{ recommand.address }}</p>
+                  </li>
+                  {% endfor %}
+              </ul>
+            </body>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
