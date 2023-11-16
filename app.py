@@ -27,7 +27,7 @@ load_dotenv()
 myWeatherKey = os.environ.get("WEATHER_FORECAST_KEY")
 
 #네이버 API ID값과 secret값 입력 (고유번호임)
-ncreds = {"client_id": "ZjNNrGy2tWkw_zbMu0gE", "client_secret": "wVgVQegmAm"}
+ncreds = {"client_id": "", "client_secret": ""}
 nheaders = {
     "X-Naver-Client-Id": ncreds.get("client_id"),
     "X-Naver-Client-Secret": ncreds.get("client_secret"),
